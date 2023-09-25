@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 // import { PG_DATABASE, PG_HOST, PG_PASSWORD, PG_PORT, PG_USER } from './config';
-const sequelize = new sequelize_1.Sequelize('aula-node', 'postgres', 'postgres', {
+const sequelize = new sequelize_1.Sequelize('locale-api', 'mikael', 'mik.st', {
     host: 'localhost',
     dialect: 'postgres'
 });
