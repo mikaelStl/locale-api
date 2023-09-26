@@ -1,10 +1,14 @@
 import Location from '../model/Location';
 import { Request, Response } from 'express';
+import Maker from '../public/assets/Marker';
+import map from '../public/map';
+
+const icon = '../public/assets/point.svg';
 
 //CREATE
 async function create(req: Request, res: Response) {
     const nome = req.body.name;
-    const coord = [req.body.lng, req.body.lat];
+    const coord = [req.body.coordinates];
     
     try {
         await Location.create(
@@ -25,6 +29,13 @@ async function create(req: Request, res: Response) {
 //READ
 async function list(req: Request, res: Response) {
     const locations = await Location.findAll();
+
+    for (const local of locations) {
+        const marker = new Maker(map, icon, local.geom.coordinates);
+
+        
+        // console.log(marker);
+    }
 
     res.status(200).send(locations);
 }

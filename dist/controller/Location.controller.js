@@ -17,9 +17,16 @@ const Location_1 = __importDefault(require("../model/Location"));
 //CREATE
 function create(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const local = Location_1.default.build(req.body);
+        const nome = req.body.name;
+        const coord = [req.body.coordinates];
         try {
-            yield local.save();
+            yield Location_1.default.create({
+                name: nome,
+                geom: {
+                    type: 'Point',
+                    coordinates: coord
+                }
+            });
             res.status(201).send('saved');
         }
         catch (error) {
