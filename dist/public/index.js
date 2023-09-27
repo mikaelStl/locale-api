@@ -43,7 +43,6 @@ btnRegister === null || btnRegister === void 0 ? void 0 : btnRegister.addEventLi
 });
 function showPoints() {
     (0, Map_controller_1.getPoints)().then(pnts => {
-        console.log(pnts);
         for (const p of pnts) {
             const marker = new Marker_1.default(map, icon, p.geom.coordinates);
             marker.add();

@@ -28,10 +28,10 @@ async function savePoint(marker: Marker) {
             throw new Error('ERROR IN REQUEST');
         }
   
-        console.log('SUCESS');
-        console.log(resp);
+        alert('SUCESS');
+
     } catch (error) {
-        console.log('ERROR: ' + error);
+        alert('ERROR: ' + error);
     }
 }
 
@@ -52,7 +52,7 @@ async function getPoints(): Promise<Point[]> {
 
         return locals as Point[];
     } catch (error) {
-        console.error('ERROR: ' + error);
+        alert('ERROR: ' + error);
         throw error;
     }
 }

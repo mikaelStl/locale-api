@@ -29,11 +29,10 @@ function savePoint(marker) {
             if (!resp.ok) {
                 throw new Error('ERROR IN REQUEST');
             }
-            console.log('SUCESS');
-            console.log(resp);
+            alert('SUCESS');
         }
         catch (error) {
-            console.log('ERROR: ' + error);
+            alert('ERROR: ' + error);
         }
     });
 }
@@ -54,7 +53,7 @@ function getPoints() {
             return locals;
         }
         catch (error) {
-            console.error('ERROR: ' + error);
+            alert('ERROR: ' + error);
             throw error;
         }
     });

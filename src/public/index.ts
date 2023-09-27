@@ -44,7 +44,6 @@ btnRegister?.addEventListener('click', ()=>{
 
 function showPoints() {
   getPoints().then( pnts => {
-    console.log(pnts);
     for (const p of pnts) {
       const marker = new Marker(map, icon, p.geom.coordinates);
       marker.add();
