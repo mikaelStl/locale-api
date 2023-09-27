@@ -4,13 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const path_1 = __importDefault(require("path"));
 const Location_controller_1 = require("../controller/Location.controller");
 const location_router = express_1.default.Router();
-//VIEW
-location_router.get('/map', (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, '../public', 'index.html'));
-});
 //CREATE
 location_router.post('/', Location_controller_1.create);
 //READ

@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
-  entry: "./src/public/map.ts",
+  entry: "./src/public/index.ts",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "src", "public"),

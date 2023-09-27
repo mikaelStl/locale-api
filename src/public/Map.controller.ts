@@ -2,32 +2,52 @@ import Marker from "./assets/Marker";
 
 let increment = 0;
 
-function savePoint(marker: Marker) {
-    const point = {
-        name: `local ${increment+=1}`,
-        coordinates: marker.getPosition()
-    }
-
-    fetch('http://localhost:3000/location', {
-        method: 'POST',
-        headers: {
+async function savePoint(marker: Marker) {
+    try {
+        const point = {
+            name: `local ${increment+=1}`,
+            coordinates: marker.getPosition()
+        }
+  
+        const resp = await fetch('http://localhost:3000/location', {
+          method: 'POST',
+          headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/jsons'
-        },
-        body: JSON.stringify(point)
-    }).then( response => {
-        alert('SAVED WITH SUCESS');
-    }).catch(erro => {
-        alert('FAILED: ' + erro);
-    });
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(point)
+        });
+        
+        if (!resp.ok) {
+            throw new Error('ERROR IN REQUEST');
+        }
+  
+        console.log('SUCESS');
+        console.log(resp);
+    } catch (error) {
+        console.log('ERROR: ' + error);
+    }
 }
 
-// fetch("http://localhost:3000/pontos",{
-//       method: 'POST',
-//       headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(obj)
-//     }).then(response =>{alert('Salvo com sucesso')})
-//     .catch(error => alert('Falha ao salvar!'));
+async function getPoints() {
+    try {
+        const resp = await fetch('http://localhost:3000/location', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json'
+          },
+        });
+
+        if (!resp.ok) {
+            throw new Error('ERROR IN REQUEST');
+        }
+  
+        const locals = await resp.json();
+        console.log(locals);
+
+    } catch (error) {
+        console.log('ERROR: ' + error);
+    }
+}
+
+export { savePoint, getPoints };

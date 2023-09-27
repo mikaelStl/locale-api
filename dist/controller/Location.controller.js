@@ -14,11 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.find = exports.list = exports.create = void 0;
 const Location_1 = __importDefault(require("../model/Location"));
+const icon = '../public/assets/point.svg';
 //CREATE
 function create(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const nome = req.body.name;
-        const coord = [req.body.coordinates];
+        const coord = req.body.coordinates;
         try {
             yield Location_1.default.create({
                 name: nome,
@@ -27,10 +28,10 @@ function create(req, res) {
                     coordinates: coord
                 }
             });
-            res.status(201).send('saved');
+            res.send('saved');
         }
         catch (error) {
-            res.status(400).send('failed');
+            res.send('failed');
         }
     });
 }
@@ -39,7 +40,7 @@ exports.create = create;
 function list(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const locations = yield Location_1.default.findAll();
-        res.status(200).send(locations);
+        res.send(locations);
     });
 }
 exports.list = list;

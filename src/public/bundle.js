@@ -19,6 +19,17 @@ eval("!function(t,i){ true?module.exports=i():0}(this,function(){\"use strict\";
 
 /***/ }),
 
+/***/ "./src/public/Map.controller.ts":
+/*!**************************************!*\
+  !*** ./src/public/Map.controller.ts ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.getPoints = exports.savePoint = void 0;\nlet increment = 0;\nfunction savePoint(marker) {\n    return __awaiter(this, void 0, void 0, function* () {\n        try {\n            const point = {\n                name: `local ${increment += 1}`,\n                coordinates: marker.getPosition()\n            };\n            const resp = yield fetch('http://localhost:3000/location', {\n                method: 'POST',\n                headers: {\n                    'Accept': 'application/json',\n                    'Content-Type': 'application/json'\n                },\n                body: JSON.stringify(point)\n            });\n            if (!resp.ok) {\n                throw new Error('ERROR IN REQUEST');\n            }\n            console.log('SUCESS');\n            console.log(resp);\n        }\n        catch (error) {\n            console.log('ERROR: ' + error);\n        }\n    });\n}\nexports.savePoint = savePoint;\nfunction getPoints() {\n    return __awaiter(this, void 0, void 0, function* () {\n        try {\n            const resp = yield fetch('http://localhost:3000/location', {\n                method: 'GET',\n                headers: {\n                    'Accept': 'application/json'\n                },\n            });\n            if (!resp.ok) {\n                throw new Error('ERROR IN REQUEST');\n            }\n            const locals = yield resp.json();\n            console.log(locals);\n        }\n        catch (error) {\n            console.log('ERROR: ' + error);\n        }\n    });\n}\nexports.getPoints = getPoints;\n\n\n//# sourceURL=webpack://locale-api/./src/public/Map.controller.ts?");
+
+/***/ }),
+
 /***/ "./src/public/assets/Marker.ts":
 /*!*************************************!*\
   !*** ./src/public/assets/Marker.ts ***!
@@ -30,14 +41,14 @@ eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {
 
 /***/ }),
 
-/***/ "./src/public/map.ts":
-/*!***************************!*\
-  !*** ./src/public/map.ts ***!
-  \***************************/
+/***/ "./src/public/index.ts":
+/*!*****************************!*\
+  !*** ./src/public/index.ts ***!
+  \*****************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst Map_1 = __importDefault(__webpack_require__(/*! ol/Map */ \"./node_modules/ol/Map.js\"));\nconst View_1 = __importDefault(__webpack_require__(/*! ol/View */ \"./node_modules/ol/View.js\"));\nconst Tile_1 = __importDefault(__webpack_require__(/*! ol/layer/Tile */ \"./node_modules/ol/layer/Tile.js\"));\nconst OSM_1 = __importDefault(__webpack_require__(/*! ol/source/OSM */ \"./node_modules/ol/source/OSM.js\"));\nconst proj_1 = __webpack_require__(/*! ol/proj */ \"./node_modules/ol/proj.js\");\nconst Marker_1 = __importDefault(__webpack_require__(/*! ./assets/Marker */ \"./src/public/assets/Marker.ts\"));\nconst map = new Map_1.default({\n    target: 'map',\n    layers: [\n        new Tile_1.default({\n            source: new OSM_1.default(),\n        }),\n    ],\n    view: new View_1.default({\n        center: (0, proj_1.fromLonLat)([-38.56, -6.89]),\n        zoom: 15,\n    }),\n});\nmap.on('click', function (event) {\n    const coordinates = (0, proj_1.toLonLat)(event.coordinate);\n    // const lat = coordinates[1];\n    // const lng = coordinates[0];\n    const marker = new Marker_1.default(map, './assets/point.svg', coordinates);\n    marker.add();\n});\n\n\n//# sourceURL=webpack://locale-api/./src/public/map.ts?");
+eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.locals = exports.map = void 0;\nconst Map_1 = __importDefault(__webpack_require__(/*! ol/Map */ \"./node_modules/ol/Map.js\"));\nconst View_1 = __importDefault(__webpack_require__(/*! ol/View */ \"./node_modules/ol/View.js\"));\nconst Tile_1 = __importDefault(__webpack_require__(/*! ol/layer/Tile */ \"./node_modules/ol/layer/Tile.js\"));\nconst OSM_1 = __importDefault(__webpack_require__(/*! ol/source/OSM */ \"./node_modules/ol/source/OSM.js\"));\nconst proj_1 = __webpack_require__(/*! ol/proj */ \"./node_modules/ol/proj.js\");\nconst Marker_1 = __importDefault(__webpack_require__(/*! ./assets/Marker */ \"./src/public/assets/Marker.ts\"));\nconst Map_controller_1 = __webpack_require__(/*! ./Map.controller */ \"./src/public/Map.controller.ts\");\nconst btnRegister = document.querySelector('#register');\nconst locals = [];\nexports.locals = locals;\nconst map = new Map_1.default({\n    target: 'map',\n    layers: [\n        new Tile_1.default({\n            source: new OSM_1.default(),\n        }),\n    ],\n    view: new View_1.default({\n        center: (0, proj_1.fromLonLat)([-38.56, -6.89]),\n        zoom: 15,\n    }),\n});\nexports.map = map;\nmap.on('click', function (event) {\n    const coordinates = (0, proj_1.toLonLat)(event.coordinate);\n    // const lat = coordinates[1];\n    // const lng = coordinates[0];\n    const marker = new Marker_1.default(map, './assets/point.svg', coordinates);\n    marker.add();\n    locals.push(marker);\n});\nbtnRegister === null || btnRegister === void 0 ? void 0 : btnRegister.addEventListener('click', () => {\n    // console.log(locals[locals.length - 1]);\n    const marker = locals[locals.length - 1];\n    (0, Map_controller_1.savePoint)(marker);\n});\nfunction showPoints() {\n    return __awaiter(this, void 0, void 0, function* () {\n        yield (0, Map_controller_1.getPoints)();\n        // console.log('pontos: ' + points);\n    });\n}\nshowPoints();\n\n\n//# sourceURL=webpack://locale-api/./src/public/index.ts?");
 
 /***/ }),
 
@@ -1993,7 +2004,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/public/map.ts");
+/******/ 	var __webpack_exports__ = __webpack_require__("./src/public/index.ts");
 /******/ 	
 /******/ })()
 ;

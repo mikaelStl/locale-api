@@ -4,6 +4,10 @@ import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import Marker from './assets/Marker';
+import { savePoint, getPoints} from './Map.controller';
+
+const btnRegister = document.querySelector('#register');
+const locals:Marker[] = [];
 
 const map = new Map({
   target: 'map',
@@ -26,6 +30,22 @@ map.on('click', function (event) {
 
   const marker = new Marker(map, './assets/point.svg', coordinates);
   marker.add();
+  locals.push(marker);
 });
 
-export default map;
+btnRegister?.addEventListener('click', ()=>{
+  // console.log(locals[locals.length - 1]);
+  const marker = locals[locals.length-1];
+
+  savePoint(marker);
+});
+
+async function showPoints() {
+  await getPoints();
+  // console.log('pontos: ' + points);
+  
+}
+
+showPoints();
+
+export {map, locals};
