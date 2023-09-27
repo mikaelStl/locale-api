@@ -1,5 +1,11 @@
 import Marker from "./assets/Marker";
 
+interface Point{
+    id: number;
+    name: string;
+    geom: any;
+}
+
 let increment = 0;
 
 async function savePoint(marker: Marker) {
@@ -29,7 +35,7 @@ async function savePoint(marker: Marker) {
     }
 }
 
-async function getPoints() {
+async function getPoints(): Promise<Point[]> {
     try {
         const resp = await fetch('http://localhost:3000/location', {
           method: 'GET',
@@ -41,12 +47,13 @@ async function getPoints() {
         if (!resp.ok) {
             throw new Error('ERROR IN REQUEST');
         }
-  
-        const locals = await resp.json();
-        console.log(locals);
 
+        const locals = await resp.json();
+
+        return locals as Point[];
     } catch (error) {
-        console.log('ERROR: ' + error);
+        console.error('ERROR: ' + error);
+        throw error;
     }
 }
 

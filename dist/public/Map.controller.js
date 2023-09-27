@@ -51,10 +51,11 @@ function getPoints() {
                 throw new Error('ERROR IN REQUEST');
             }
             const locals = yield resp.json();
-            console.log(locals);
+            return locals;
         }
         catch (error) {
-            console.log('ERROR: ' + error);
+            console.error('ERROR: ' + error);
+            throw error;
         }
     });
 }

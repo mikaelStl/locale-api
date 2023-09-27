@@ -6,6 +6,8 @@ import { fromLonLat, toLonLat } from 'ol/proj';
 import Marker from './assets/Marker';
 import { savePoint, getPoints} from './Map.controller';
 
+const icon = './assets/point.svg';
+
 const btnRegister = document.querySelector('#register');
 const locals:Marker[] = [];
 
@@ -28,7 +30,7 @@ map.on('click', function (event) {
   // const lat = coordinates[1];
   // const lng = coordinates[0];
 
-  const marker = new Marker(map, './assets/point.svg', coordinates);
+  const marker = new Marker(map, icon, coordinates);
   marker.add();
   locals.push(marker);
 });
@@ -40,10 +42,16 @@ btnRegister?.addEventListener('click', ()=>{
   savePoint(marker);
 });
 
-async function showPoints() {
-  await getPoints();
-  // console.log('pontos: ' + points);
-  
+function showPoints() {
+  getPoints().then( pnts => {
+    console.log(pnts);
+    for (const p of pnts) {
+      const marker = new Marker(map, icon, p.geom.coordinates);
+      marker.add();
+    }
+  }).catch(err => {
+    console.error(err);
+  });
 }
 
 showPoints();

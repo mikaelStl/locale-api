@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -20,6 +11,7 @@ const OSM_1 = __importDefault(require("ol/source/OSM"));
 const proj_1 = require("ol/proj");
 const Marker_1 = __importDefault(require("./assets/Marker"));
 const Map_controller_1 = require("./Map.controller");
+const icon = './assets/point.svg';
 const btnRegister = document.querySelector('#register');
 const locals = [];
 exports.locals = locals;
@@ -40,7 +32,7 @@ map.on('click', function (event) {
     const coordinates = (0, proj_1.toLonLat)(event.coordinate);
     // const lat = coordinates[1];
     // const lng = coordinates[0];
-    const marker = new Marker_1.default(map, './assets/point.svg', coordinates);
+    const marker = new Marker_1.default(map, icon, coordinates);
     marker.add();
     locals.push(marker);
 });
@@ -50,9 +42,14 @@ btnRegister === null || btnRegister === void 0 ? void 0 : btnRegister.addEventLi
     (0, Map_controller_1.savePoint)(marker);
 });
 function showPoints() {
-    return __awaiter(this, void 0, void 0, function* () {
-        yield (0, Map_controller_1.getPoints)();
-        // console.log('pontos: ' + points);
+    (0, Map_controller_1.getPoints)().then(pnts => {
+        console.log(pnts);
+        for (const p of pnts) {
+            const marker = new Marker_1.default(map, icon, p.geom.coordinates);
+            marker.add();
+        }
+    }).catch(err => {
+        console.error(err);
     });
 }
 showPoints();
