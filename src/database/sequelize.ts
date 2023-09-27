@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize";
-// import { PG_DATABASE, PG_HOST, PG_PASSWORD, PG_PORT, PG_USER } from './config';
+import { PG_DATABASE, PG_HOST, PG_PASSWORD, PG_PORT, PG_USER } from './config';
 
-const sequelize = new Sequelize('locale-api', 'mikael', 'mik.st',{
-    host: 'localhost',
+const sequelize = new Sequelize(PG_DATABASE, PG_USER, PG_PASSWORD,{
+    host: PG_HOST,
     dialect: 'postgres'
 });
 

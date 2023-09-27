@@ -10,9 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
-// import { PG_DATABASE, PG_HOST, PG_PASSWORD, PG_PORT, PG_USER } from './config';
-const sequelize = new sequelize_1.Sequelize('locale-api', 'mikael', 'mik.st', {
-    host: 'localhost',
+const config_1 = require("./config");
+const sequelize = new sequelize_1.Sequelize(config_1.PG_DATABASE, config_1.PG_USER, config_1.PG_PASSWORD, {
+    host: config_1.PG_HOST,
     dialect: 'postgres'
 });
 const connect = () => __awaiter(void 0, void 0, void 0, function* () {
